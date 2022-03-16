@@ -16,6 +16,7 @@ public class Mario extends Sprite
     public static int coins = 0;
     public static int lives = 3;
     public static String levelString = "none";
+    public static int score = 0;
 
     public static void resetStatic()
     {
@@ -538,6 +539,7 @@ public class Mario extends Sprite
         onGround = false;
         sliding = false;
         invulnerableTime = 1;
+        Mario.score += 300; // Add 300 points to the score after jumping on an enemy.
     }
 
     public void stomp(Shell shell)
@@ -562,6 +564,7 @@ public class Mario extends Sprite
             onGround = false;
             sliding = false;
             invulnerableTime = 1;
+            Mario.score += 300; // Add 300 points to the score after jumping on a shell.
         }
     }
 
@@ -630,7 +633,7 @@ public class Mario extends Sprite
         }
         else 
         {
-            Mario.getCoin();
+            Mario.score += 1000; // Add 1000 points to score when character is big and has a power up.
             world.sound.play(Art.samples[Art.SAMPLE_GET_COIN], this, 1, 1, 1);
 		}
                
@@ -649,7 +652,7 @@ public class Mario extends Sprite
         }
         else
         {
-            Mario.getCoin();
+            Mario.score += 1000; // Add 1000 points to the score when the character is big.
             world.sound.play(Art.samples[Art.SAMPLE_GET_COIN], this, 1, 1, 1);
         }
     }
@@ -695,6 +698,7 @@ public class Mario extends Sprite
         onGround = false;
         sliding = false;
         invulnerableTime = 1;
+        Mario.score += 300; // Add 300 points to score if bullet bill is jumped on.
     }
 
     public byte getKeyMask()
