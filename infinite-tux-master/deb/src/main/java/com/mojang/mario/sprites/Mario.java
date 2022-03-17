@@ -27,12 +27,12 @@ public class Mario extends Sprite
         levelString = "none";
     }
 
-    public static final int KEY_LEFT = 0;
-    public static final int KEY_RIGHT = 1;
-    public static final int KEY_DOWN = 2;
-    public static final int KEY_UP = 3;
-    public static final int KEY_JUMP = 4;
-    public static final int KEY_SPEED = 5;
+    public static final int KEY_LEFT = 0; // 0 37
+    public static final int KEY_RIGHT = 1; // 1 39
+    public static final int KEY_DOWN = 2; // 2 40
+    public static final int KEY_UP = 3; // 3 38
+    public static final int KEY_JUMP = 4; // 4 83
+    public static final int KEY_SPEED = 5; // 5 65
     public static final int KEY_CONTROLS = 6; // Set key for controls to be displayed.
 
     private static float GROUND_INERTIA = 0.89f;
