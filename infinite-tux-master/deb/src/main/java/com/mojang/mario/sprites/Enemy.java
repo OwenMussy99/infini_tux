@@ -331,6 +331,7 @@ public class Enemy extends Sprite
                 winged = false;
                 hPic = -hPic;
                 yPicO = -yPicO + 16;
+                Mario.score += 200;
                 return true;
             }
         }
@@ -360,6 +361,7 @@ public class Enemy extends Sprite
                 winged = false;
                 hPic = -hPic;
                 yPicO = -yPicO + 16;
+                Mario.score += 200;
                 return true;
             }
         }
