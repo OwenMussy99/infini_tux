@@ -51,6 +51,7 @@ public class TitleScene extends Scene
     }
     
     public static void controlBox(String controlMsg, String titleBar) {
+    	// Create a message box to house the controls of the game.
     	JOptionPane.showMessageDialog(null, controlMsg, "" + titleBar, JOptionPane.INFORMATION_MESSAGE);
     }
 

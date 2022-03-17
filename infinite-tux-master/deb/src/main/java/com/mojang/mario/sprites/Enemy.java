@@ -331,7 +331,7 @@ public class Enemy extends Sprite
                 winged = false;
                 hPic = -hPic;
                 yPicO = -yPicO + 16;
-                Mario.score += 200;
+                Mario.score += 200; // Update score when a shell kicked by player hits an enemy.
                 return true;
             }
         }
@@ -361,7 +361,7 @@ public class Enemy extends Sprite
                 winged = false;
                 hPic = -hPic;
                 yPicO = -yPicO + 16;
-                Mario.score += 200;
+                Mario.score += 200; // Score now updates when the power-up throwable hitbox hits an enemy.
                 return true;
             }
         }
