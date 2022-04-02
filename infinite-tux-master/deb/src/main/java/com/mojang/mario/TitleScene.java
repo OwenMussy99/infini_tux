@@ -63,7 +63,7 @@ public class TitleScene extends Scene
         if (!wasDown && keys[Mario.KEY_JUMP])
         {
         	controlBox("S - Jump\n Left Arrow - Left\n Right Arrow - Right\n Down Arrow - Crouch\n"
-        			+ " A - Use PowerUp", "Controls"); // Trigger popup window with controls labeled.
+        			+ " A - Use PowerUp\n" + "Q - Quit game", "Controls"); // Trigger popup window with controls labeled.
             component.startGame();
         }
         /*if (!wasDown && keys[Mario.KEY_CONTROLS]) {

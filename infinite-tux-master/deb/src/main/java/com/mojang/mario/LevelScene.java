@@ -41,6 +41,7 @@ public class LevelScene extends Scene implements SpriteContext
     private int levelType;
     private int musicType;
     private int levelDifficulty;
+    static int highScore;
 
     public LevelScene(GraphicsConfiguration graphicsConfiguration, MarioComponent renderer, long seed, int levelDifficulty, int type)
     {
@@ -49,6 +50,33 @@ public class LevelScene extends Scene implements SpriteContext
         this.renderer = renderer;
         this.levelDifficulty = levelDifficulty;
         this.levelType = type;
+    }
+    
+    // New method to get highscore from a txt file and display it while playing.
+    public static void getHighscore() {
+    	try {
+    		File f = new File("highscore.txt");
+    		String highScorePath = f.getAbsolutePath();
+			BufferedReader highScoreReader = new BufferedReader(new FileReader(highScorePath));
+			highScore = Integer.parseInt(highScoreReader.readLine());
+			highScoreReader.close();
+		} catch (IOException | NumberFormatException e) {
+			System.out.println("Error when trying to read highscores file: " + e);
+		}
+    }
+    
+    // New method to update the highscore in the file for the next time it is played.
+    public static void updateHighscore(int score) {
+    	try {
+    		File f = new File("highscore.txt");
+        	String highScorePath = f.getAbsolutePath();
+			BufferedWriter highScoreUpdater = new BufferedWriter(new FileWriter(highScorePath));
+			highScoreUpdater.write(String.valueOf(score));
+			highScoreUpdater.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     public void init()
@@ -388,8 +416,14 @@ public class LevelScene extends Scene implements SpriteContext
         g.setColor(Color.BLACK);
         layer.renderExit1(g, tick, paused?0:alpha);
         
+        // check if score is greater than the highscore and set the highscore to current score.
+        if (Mario.score >= LevelScene.highScore) {
+        	LevelScene.highScore = Mario.score;
+        }
+        
         drawStringDropShadow(g, "TUX " + df.format(Mario.lives), 0, 0, 7);
-        drawStringDropShadow(g, "Score: " + df.format(Mario.score), 0, 1, 7); // Score "00000000"
+        drawStringDropShadow(g, "Highscore: " + df.format(highScore), 0, 3, 7); // Prints out the highscore.
+        drawStringDropShadow(g, "Score: " + df.format(Mario.score), 0, 2, 7); // Prints out the current score of the player.
         
         drawStringDropShadow(g, "COIN", 14, 0, 7);
         drawStringDropShadow(g, " "+df.format(Mario.coins), 14, 1, 7);

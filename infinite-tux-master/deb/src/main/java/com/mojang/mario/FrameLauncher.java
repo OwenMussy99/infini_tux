@@ -3,6 +3,8 @@ package com.mojang.mario;
 import java.awt.*;
 import javax.swing.*;
 
+import com.mojang.mario.sprites.Mario;
+
 public class FrameLauncher
 {
     public static void main(String[] args)
@@ -18,6 +20,8 @@ public class FrameLauncher
         frame.setLocation((screenSize.width-frame.getWidth())/2, (screenSize.height-frame.getHeight())/2);
         
         frame.setVisible(true);
+        
+        LevelScene.getHighscore(); // Get the previous highscore.
         
         mario.start();
     }

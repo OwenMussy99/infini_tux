@@ -24,6 +24,7 @@ public class Mario extends Sprite
         fire = false;
         coins = 0;
         lives = 3;
+        score = 0;
         levelString = "none";
     }
 
@@ -34,6 +35,7 @@ public class Mario extends Sprite
     public static final int KEY_JUMP = 4; // 4 83
     public static final int KEY_SPEED = 5; // 5 65
     public static final int KEY_CONTROLS = 6; // Set key for controls to be displayed.
+    public static final int KEY_QUIT = 7; // Set for quitting the game.
 
     private static float GROUND_INERTIA = 0.89f;
     private static float AIR_INERTIA = 0.89f;

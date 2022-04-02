@@ -86,6 +86,14 @@ public class MarioComponent extends JComponent implements Runnable, KeyListener,
         {
             scene.toggleKey(Mario.KEY_JUMP, isPressed);
         }
+        // When q is pressed highscore will be updated to score value and exit.
+        if (keyCode == KeyEvent.VK_Q) {
+        	if (Mario.score >= LevelScene.highScore) {
+        		System.out.println(Mario.score);
+        		LevelScene.updateHighscore(Mario.score);
+        	}
+        	System.exit(1);
+        }
         if (isPressed && keyCode == KeyEvent.VK_F1)
         {
             useScale2x = !useScale2x;
