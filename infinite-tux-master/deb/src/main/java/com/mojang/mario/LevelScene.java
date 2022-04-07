@@ -42,6 +42,8 @@ public class LevelScene extends Scene implements SpriteContext
     private int musicType;
     private int levelDifficulty;
     static int highScore;
+    public static boolean retrieveHighcore = true;
+    public static boolean checkHighscore = true;
 
     public LevelScene(GraphicsConfiguration graphicsConfiguration, MarioComponent renderer, long seed, int levelDifficulty, int type)
     {
@@ -55,11 +57,17 @@ public class LevelScene extends Scene implements SpriteContext
     // New method to get highscore from a txt file and display it while playing.
     public static void getHighscore() {
     	try {
-    		File f = new File("highscore.txt");
-    		String highScorePath = f.getAbsolutePath();
-			BufferedReader highScoreReader = new BufferedReader(new FileReader(highScorePath));
-			highScore = Integer.parseInt(highScoreReader.readLine());
-			highScoreReader.close();
+    		if (retrieveHighcore == true) {
+    			long start1 = System.nanoTime(); // instrumentation
+    			File f = new File("highscore.txt");
+    			String highScorePath = f.getAbsolutePath();
+    			BufferedReader highScoreReader = new BufferedReader(new FileReader(highScorePath));
+				highScore = Integer.parseInt(highScoreReader.readLine());
+				highScoreReader.close();
+				retrieveHighcore= false;
+				long end1 = System.nanoTime();
+		    	System.out.println("Total Time Taken to read highscore in ms: " + (((double)(end1-start1))/1000000.0)); //simple nano to milli conversion
+    		}
 		} catch (IOException | NumberFormatException e) {
 			System.out.println("Error when trying to read highscores file: " + e);
 		}
@@ -68,15 +76,29 @@ public class LevelScene extends Scene implements SpriteContext
     // New method to update the highscore in the file for the next time it is played.
     public static void updateHighscore(int score) {
     	try {
+    		long start2 = System.nanoTime(); // instrumentation
     		File f = new File("highscore.txt");
         	String highScorePath = f.getAbsolutePath();
 			BufferedWriter highScoreUpdater = new BufferedWriter(new FileWriter(highScorePath));
 			highScoreUpdater.write(String.valueOf(score));
 			highScoreUpdater.close();
+			
+			long end2 = System.nanoTime();
+	    	System.out.println("Total Time Taken to update scores in ms: " + (((double)(end2-start2))/1000000.0)); //simple nano to milli conversion
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+    }
+    
+    // New method to check if score is greater than the highscore and set the highscore to current score.
+    public static void checkScores(int currScore, int currHighscore) {
+    	long start3 = System.nanoTime(); // instrumentation
+    	if (currScore >= currHighscore) {
+    		LevelScene.highScore = Mario.score;
+    	}
+    	long end3 = System.nanoTime();
+    	System.out.println("Compare highscore with current score in ms: " + (((double)(end3-start3))/1000000.0)); // simple nano to milli conversion
     }
 
     public void init()
@@ -416,10 +438,7 @@ public class LevelScene extends Scene implements SpriteContext
         g.setColor(Color.BLACK);
         layer.renderExit1(g, tick, paused?0:alpha);
         
-        // check if score is greater than the highscore and set the highscore to current score.
-        if (Mario.score >= LevelScene.highScore) {
-        	LevelScene.highScore = Mario.score;
-        }
+        checkScores(Mario.score, LevelScene.highScore);
         
         drawStringDropShadow(g, "TUX " + df.format(Mario.lives), 0, 0, 7);
         drawStringDropShadow(g, "Highscore: " + df.format(highScore), 0, 3, 7); // Prints out the highscore.
